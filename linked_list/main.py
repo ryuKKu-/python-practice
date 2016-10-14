@@ -16,8 +16,20 @@ def main():
     print(ll.pop_front())
     print(ll)
 
-    print(ll.front())
-    print(ll.back())
+    print(ll.pop_back())
+    print(ll)
+
+    ll.push_back(21412)
+    ll.push_back(99)
+    print(ll)
+    print("Value at index 2 : %d" % ll.value_at(2))
+
+    ll.insert_at(2, 7777)
+    ll.insert_at(0, 8452)
+    print(ll)
+
+    ll.reverse()
+    print(ll)
 
 if __name__ == "__main__":
     main()

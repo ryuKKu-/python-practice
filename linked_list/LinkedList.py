@@ -16,11 +16,9 @@ class LinkedList(object):
     def __str__(self):
         current = self.head
         output = ""
-
         while current:
             output += str(current) + " -> "
             current = current.next_node
-
         return output
 
     def __len__(self):
@@ -29,7 +27,6 @@ class LinkedList(object):
         else:
             current = self.head
             count = 0
-
             while current:
                 count += 1
                 current = current.next_node
@@ -49,10 +46,8 @@ class LinkedList(object):
         else:
             node = Node(value)
             current = self.head
-
             while current.next_node:
                 current = current.next_node
-
             current.next_node = node
 
     def pop_front(self):
@@ -63,15 +58,16 @@ class LinkedList(object):
             self.head = self.head.next_node
             return "Pop front : %s" % str(head)
 
-    # def pop_back(self):
-    #    if not self.head:
-    #        raise IndexError("Unable to pop back from empty list")
-    #    else:
-    #        current = self.head
-
-    #        while current:
-    #           current = current.next_node
-
+    def pop_back(self):
+        if not self.head:
+            raise IndexError("Unable to pop back from empty list")
+        else:
+            tail = self.head
+            while tail.next_node.next_node:
+                tail = tail.next_node
+            value = tail.next_node.value
+            tail.next_node = None
+            return "Pop back : %s" % str(value)
 
     def front(self):
         if self.head:
@@ -82,10 +78,47 @@ class LinkedList(object):
     def back(self):
         if self.head:
             current = self.head
-
-            while current:
+            for _ in range(0, len(self) - 1):
                 current = current.next_node
-
             return current.value
         else:
             return None
+
+    def value_at(self, idx):
+        if self.head:
+            if idx >= len(self):
+                raise IndexError("Index %d is out of boundaries" % idx)
+            else:
+                current = self.head
+                for _ in range(0, idx):
+                    current = current.next_node
+                return current.value
+        else:
+            raise IndexError("No value was inserted in the linked list")
+
+    def insert_at(self, idx, value):
+        if self.head:
+            if idx > len(self):
+                raise IndexError("Index %d is out of boundaries" % idx)
+            else:
+                if idx == 0:
+                    self.push_front(value)
+                elif idx == len(self):
+                    self.push_back(value)
+                else:
+                    current = self.head
+                    for i in range(0, idx-1):
+                        current = current.next_node
+                    temp = current.next_node
+                    node = Node(value, temp)
+                    current.next_node = node
+        else:
+            raise IndexError("No value was inserted in the linked list")
+
+    def reverse(self):
+        if self.head.next_node:
+            temp = self.head
+            self.head = None
+            while temp:
+                self.push_front(temp.value)
+                temp = temp.next_node
