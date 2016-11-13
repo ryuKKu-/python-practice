@@ -10,14 +10,22 @@ class BinaryTree(object):
             for i in args:
                 self.insert(i)
 
+    @property
+    def root(self):
+        return self.__root
+
+    @root.setter
+    def root(self, value):
+        self.__root = value
+
     def length(self):
         return self.size
 
     def breadth_first(self):
-        current_level = [self.__root]
+        current_level = [self.root]
         while current_level:
             next_level = list()
-            print([e.value for e in current_level])
+            print([(str(e)) for e in current_level])
             for n in current_level:
                 if n.left_node:
                     next_level.append(n.left_node)
@@ -28,10 +36,10 @@ class BinaryTree(object):
         print('\n')
 
     def min(self):
-        return self.__root.min()
+        return self.root.min()
 
     def max(self):
-        node = self.__root
+        node = self.root
 
         while node.right_node is not None:
             node = node.right_node
@@ -39,10 +47,10 @@ class BinaryTree(object):
         return node.value
 
     def insert(self, value):
-        if self.__root is None:
-            self.__root = Node(value)
+        if self.root is None:
+            self.root = Node(value)
         else:
-            self._insert(self.__root, value)
+            self._insert(self.root, value)
 
         self.size += 1
 
@@ -69,21 +77,21 @@ class BinaryTree(object):
             return self._get(node.left_node, value)
 
     def contains(self, value):
-        if self._get(self.__root, value):
+        if self._get(self.root, value):
             return True
         return False
 
     def delete(self, value):
         if self.size > 1:
-            node = self._get(self.__root, value)
+            node = self._get(self.root, value)
             if node:
                 self._remove(node)
                 self.size -= 1
             else:
                 raise KeyError('Error, value not in tree')
-        elif self.size == 1 and self.__root.value == value:
-            self.__root = None
-            self.size = 1
+        elif self.size == 1 and self.root.value == value:
+            self.root = None
+            self.size = 0
         else:
             raise KeyError('Error, value not in tree')
 

@@ -4,6 +4,7 @@ class Node(object):
         self.__left_node = left_node
         self.__right_node = right_node
         self.__parent = parent
+        self.balanceFactor = 0
 
     @property
     def value(self):
@@ -36,6 +37,9 @@ class Node(object):
     @parent.setter
     def parent(self, node):
         self.__parent = node
+
+    def __str__(self):
+        return "value : " + str(self.value) + ", parent : " + (str(self.parent.value) if self.parent else 'None')
 
     def is_leaf(self):
         return self.left_node is None and self.right_node is None

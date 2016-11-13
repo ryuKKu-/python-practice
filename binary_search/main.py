@@ -1,4 +1,5 @@
 from binary_search.BinaryTree import BinaryTree
+from binary_search.AVLTree import AVLTree
 
 
 def binary_search(array, key, min, max):
@@ -20,14 +21,21 @@ def binary_search(array, key, min, max):
 
 def main():
     array = [10, 65, 85, 41, 5124, 2310, 2, 9, 1, 5, 56, 874]
-    bts = BinaryTree(*array)
-    bts.breadth_first()
+    b = BinaryTree(*array)
+    b.breadth_first()
 
-    print(bts.length(), '\n')
-    print(bts.contains(8888), '\n')
+    print(b.length(), '\n')
+    print(b.contains(8888), '\n')
 
-    bts.delete(10)
-    bts.breadth_first()
+    b.delete(10)
+    b.breadth_first()
+
+    array2 = [6, 5, 4, 3, 2, 1, 7, 8, 9]
+    bst = BinaryTree(*array2)
+    bst.breadth_first()
+
+    avl = AVLTree(*array2)
+    avl.breadth_first()
 
 if __name__ == "__main__":
     main()
